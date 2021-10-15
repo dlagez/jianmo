@@ -23,3 +23,4 @@ test_label = label_num[1500:, :]
 
 print("train_data.shape=", train_data.shape, "train_label.shape=", train_label.shape)
 print("test_data.shape=", test_data.shape, "test_label.shape=", test_label.shape)
+
