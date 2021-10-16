@@ -11,13 +11,13 @@ cols = data.columns.values.tolist()
 print(len(cols))  # 20
 
 
-
-
+# 绘制散点图矩阵
 sns.pairplot(data, size=2.5)
 plt.tight_layout()
 plt.show()
 
 
+# 绘制热度图
 cm = np.corrcoef(data.values.T)
 print(cm.shape)
 

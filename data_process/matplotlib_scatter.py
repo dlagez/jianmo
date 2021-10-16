@@ -9,9 +9,10 @@ label = pd.read_excel("ERα_activity.xlsx", sheet_name=0)
 frames = [data, label]
 result = pd.concat(frames, axis=1)
 
-X = result['SsLi']
+X = result['apol']  # SsLi nB
 Y = result['pIC50']
 
-result.plot.scatter(x='SsLi', y='pIC50')
+# apol ATSc3 ATSm2 BCUTp-1h SCH-7
+result.plot.scatter(x='apol', y='pIC50')
 plt.show()
 

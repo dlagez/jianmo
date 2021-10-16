@@ -4,6 +4,8 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+
+# 海洋组的散点图和热度图
 # data = pd.read_csv("data_20.csv", index_col="SMILES").astype(float)
 
 data = pd.read_excel("Molecular_Descriptor.xlsx", sheet_name=0, index_col='SMILES').astype(float)
