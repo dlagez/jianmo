@@ -23,11 +23,9 @@ print(cm.shape)
 
 hm = sns.heatmap(cm,
                  cbar=True,
-
                  square=True,
                  xticklabels=cols,
                  yticklabels=cols
-
                  )
 
 

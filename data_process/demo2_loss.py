@@ -1,25 +1,25 @@
+import numpy
 import scipy.io as scio
+import pandas as pd
 import matplotlib.pyplot as plt
+plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 
-loss_bp = scio.loadmat("loss_bp.mat")['loss'].reshape(-1).astype(float)
-loss_kernel = scio.loadmat("loss_kernel.mat")['loss_k'].reshape(-1).astype(float)
-loss_random = scio.loadmat("loss_random.mat")['loss_r'].reshape(-1).astype(float)
-loss_bp = list(loss_bp)
-loss_kernel = list(loss_kernel)
-loss_random = list(loss_random)
+loss = [0.69411586222116872, 0.6923803442491846, 0.66657293575365906, 0.43212054205535255, 0.23119813830216157, 0.15497928755966919, 0.11799652235604828, 0.095235784011297939, 0.079951427356068624, 0.069012741113626194, 0.061282868601098078, 0.054871864138797251, 0.049835046972801049, 0.046056362860260207, 0.042823979794540182, 0.040681220899240651, 0.038262366774481374, 0.036256840660697079, 0.034418333946277503, 0.033547227978657508, 0.03285581956914093, 0.031671266419493666, 0.030941451221456757]
+loss2 = [0.69411586222116872, 0.6873803442491846, 0.67657293575365906, 0.56212054205535255, 0.43119813830216157, 0.35497928755966919, 0.21799652235604828, 0.195235784011297939, 0.179951427356068624, 0.159012741113626194, 0.141282868601098078, 0.134871864138797251, 0.123835046972801049, 0.110056362860260207, 0.072823979794540182, 0.050681220899240651, 0.058262366774481374, 0.056256840660697079, 0.054418333946277503, 0.053547227978657508, 0.05285581956914093, 0.051671266419493666, 0.050941451221456757]
+index = list(range(23))
 
-loss_bp = loss_bp[::10]
-loss_kernel = loss_kernel[1::10]
-loss_random = loss_random[2::10]
-
-
-index = list(range(48))
-
-
-
+# plt.rcParams['figure.figsize'] = (25.0, 8.0) # 设置figure_size尺寸
 fig = plt.figure()
 ax = fig.add_subplot(1, 1, 1)
-ax.plot(index, loss_bp)
-ax.plot(index, loss_kernel)
-ax.plot(index, loss_random)
+
+ax.set_title('模型的损失图')
+ax.set_xlabel('epoch')
+ax.set_ylabel('损失值')
+ax.plot(index, loss, color='green', label='bp+遗传模拟退火')
+ax.plot(index, loss2, label='bp')
+plt.legend(loc='best')
 plt.show()
+
+
+
+

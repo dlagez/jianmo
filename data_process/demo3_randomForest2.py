@@ -29,7 +29,7 @@ test_data = test_data.iloc[:, index].values
 
 test_label_pred = clf.predict(test_data)
 
-for i in [3, 8, 9, 14, 15, 30, 36, 39, 43]:
-    test_label_pred[i] = 1
+# for i in [3, 8, 9, 14, 15, 30, 36, 39, 43]:
+#     test_label_pred[i] = 1
 print(test_label_pred)
 

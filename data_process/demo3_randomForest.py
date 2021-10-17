@@ -38,14 +38,29 @@ clf = RandomForestClassifier(max_depth=2, random_state=0)
 clf.fit(train_data, train_label)
 
 print(clf.predict(test_data))
+pred = clf.predict(test_data)
 clf.score(test_data, test_label)
 
 
-# 将所有的数据用来训练，预测题目的数据
-clf = RandomForestClassifier(max_depth=2, random_state=0)
-clf.fit(data, label)
-print(clf)
+from sklearn.metrics import confusion_matrix
+confusion_matrix(test_label, pred)
 
+from sklearn.metrics import accuracy_score
+accuracy_score(test_label, pred)
 
+import matplotlib.pyplot as plt
+from sklearn import metrics
+fpr, tpr, threshold = metrics.roc_curve(test_label, pred)
+roc_auc = metrics.auc(fpr, tpr)
+plt.figure(figsize=(6,6))
+plt.title('RandomForestClassifier Validation ROC')
+plt.plot(fpr, tpr, 'b', label = 'Val AUC = %0.3f' % roc_auc)
+plt.legend(loc = 'lower right')
+plt.plot([0, 1], [0, 1],'r--')
+plt.xlim([0, 1])
+plt.ylim([0, 1])
+plt.ylabel('True Positive Rate')
+plt.xlabel('False Positive Rate')
+plt.show()
 
 
