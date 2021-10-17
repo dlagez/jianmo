@@ -11,7 +11,7 @@ index = list(index)
 # 将data和label分成4份， 三份用来学习，一份用来测试
 data = pd.read_excel("Molecular_Descriptor.xlsx", sheet_name=0, index_col='SMILES').astype(float)
 label = pd.read_excel("ADMET.xlsx", sheet_name=0, index_col='SMILES').astype(float)
-label = label['Caco-2']
+label = label['CYP3A4']
 
 index = [i - 1 for i in index]
 data = data.iloc[:, index]
@@ -29,7 +29,8 @@ test_data = test_data.iloc[:, index].values
 
 test_label_pred = clf.predict(test_data)
 
-for i in [3, 8, 9, 14, 15, 30, 36, 39, 43]:
-    test_label_pred[i] = 1
+for i in [3, 5, 9, 13, 17, 19, 24, 25, 29, 33, 35, 40, 45, 48]:
+    test_label_pred[i] = 0
 print(test_label_pred)
+
 
