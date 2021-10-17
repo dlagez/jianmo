@@ -2,12 +2,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LinearRegression
-from sklearn.linear_model import RANSACRegressor
 from sklearn.metrics import mean_squared_error
 from sklearn.metrics import r2_score
 # 根据房价预测的模型来解决S
+
+# 解决第二问问题的代码，生成了预测的数据
 df = pd.read_csv("data_20.csv", index_col="SMILES").astype(float)
 label = pd.read_excel("ERα_activity.xlsx", sheet_name=0, index_col='SMILES').astype(float)
 label = label['pIC50']
@@ -62,6 +61,12 @@ y_test_pred = forest.predict(X_test)
 # 第二题题解：
 pred = forest.predict(data_test)
 
+data_frame = {'pred': pred}
+frame = pd.DataFrame(data_frame)
+
+
+
+
 print('MSE train: %.3f, test: %.3f' % (
         mean_squared_error(y_train, y_train_pred),
         mean_squared_error(y_test, y_test_pred)))
@@ -94,3 +99,44 @@ plt.tight_layout()
 
 plt.show()
 
+# 模型评估
+data = pd.read_csv("data_20.csv", index_col="SMILES").astype(float)
+label = pd.read_excel("ERα_activity.xlsx", sheet_name=0, index_col='SMILES').astype(float)
+label = label['pIC50']
+
+train_data = data.iloc[:1500, :]
+test_data = data.iloc[1500:, :]
+
+train_label = label.iloc[:1500]
+test_label = label.iloc[1500:]
+
+
+from sklearn.ensemble import RandomForestRegressor
+
+forest = RandomForestRegressor(n_estimators=1000,
+                               criterion='mse',
+                               random_state=1,
+                               n_jobs=-1)
+forest.fit(train_data, train_label)
+pred = forest.predict(test_data)
+from sklearn.metrics import r2_score
+r2_score(test_label, pred, multioutput='variance_weighted')
+
+
+
+
+
+import matplotlib.pyplot as plt
+from sklearn import metrics
+fpr, tpr, threshold = metrics.roc_curve(test_label, pred)
+roc_auc = metrics.auc(fpr, tpr)
+plt.figure(figsize=(6,6))
+plt.title('NuSVC MN Validation ROC')
+plt.plot(fpr, tpr, 'b', label = 'Val AUC = %0.3f' % roc_auc)
+plt.legend(loc = 'lower right')
+plt.plot([0, 1], [0, 1],'r--')
+plt.xlim([0, 1])
+plt.ylim([0, 1])
+plt.ylabel('True Positive Rate')
+plt.xlabel('False Positive Rate')
+plt.show()

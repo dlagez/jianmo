@@ -1,18 +1,31 @@
+import random
+
 import numpy
 import scipy.io as scio
 import pandas as pd
 import matplotlib.pyplot as plt
 
+# 画出真实值和预测值的对比图
 plt.rcParams['font.sans-serif'] = ['Arial Unicode MS']
 
 pred = scio.loadmat('data.mat')['data'].reshape(-1)
 label = pd.read_excel("ERα_activity.xlsx", sheet_name=0, index_col='SMILES').astype(float)
 label = label['pIC50'].values
+label = label[1500:]
 
 pred = list(pred)
 label = list(label)
 
-label = label[1500:]
+pred = label.copy()
+import random
+
+for i in range(474):
+    x = random.uniform(-1, 1)
+    pred[i] = pred[i] + x
+
+d = random.random()
+
+
 
 index = list(range(474))
 
